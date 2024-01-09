@@ -1,4 +1,4 @@
-export const breedsRec = () => {
+export const renderBreeds = () => {
 	const url = 'https://api.thecatapi.com/v1/breeds';
 	const content = document.querySelector('.block__content');
 
@@ -16,7 +16,7 @@ export const breedsRec = () => {
 							.map(item => `<option value="${item.id}">${item.name}</option>`)
 							.join('')}
         </select>
-        <div id="breedsImages"></div>`;
+        <div id="breedsImages" class="breedsImages"></div>`;
 		content.innerHTML = selectHTML;
 		document
 			.getElementById('breedsSelect')

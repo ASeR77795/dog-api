@@ -1,5 +1,6 @@
-const url = 'https://api.thecatapi.com/v1/images/search?limit=10';
+const content = document.querySelector('.block__content');
 
-fetch(url)
-	.then(res => res.json())
-	.then(data);
+export const renderVoting = () => {
+	const voting = `<h1>Voting</h1>`;
+	content.innerHTML = voting;
+};
