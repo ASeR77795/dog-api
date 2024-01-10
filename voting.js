@@ -1,8 +1,8 @@
-const key =
-	'live_6mgBKRMynE68259RyOatMgUHlnr1paNQh8vDZNhyHRlEwpGsg2uf0hQKegAE8mR7';
+import { key } from './key.js';
 
 const content = document.querySelector('.block__content');
 const url = 'https://api.thecatapi.com/v1/images/search';
+export const arr = [];
 
 export const renderVoting = () => {
 	const voting = `<h1>Voting</h1>`;
@@ -46,15 +46,26 @@ export const renderVoting = () => {
 		}
 	};
 
+	const addFavs = img => {
+		arr.push(img);
+		console.log(arr);
+	};
+
 	const handleButtonClick = event => {
-		event.stopPropagation();
-		const btn = event.target;
+		const btn = event.target.closest('.btn');
+
+		if (!btn) return;
+
 		if (btn.classList.contains('up')) {
 			upVote(btn.getAttribute('data-id'));
+			renderVoting();
 		}
 		if (btn.classList.contains('down')) {
 			downVote(btn.getAttribute('data-id'));
-		} else {
+			renderVoting();
+		}
+		if (btn.classList.contains('favs')) {
+			addFavs(btn.getAttribute('data-favs'));
 		}
 	};
 
@@ -64,7 +75,7 @@ export const renderVoting = () => {
 			content.innerHTML = `
             <div class="img__box"><img  src=${data[0].url} /></div>
             <div class="btn__box">
-                <button class="btn" type="button">
+                <button class="btn favs" type="button" data-favs='${data[0].url}'>
                     <svg
                         width="20px"
                         height="20px"
@@ -125,7 +136,7 @@ export const renderVoting = () => {
                             </g>
                         </svg>
                     </button>
-                    <button class="btn down" data-id='${data[0].id}' ">
+                    <button class="btn down" data-id='${data[0].id}'>
                         <svg
                             width="20px"
                             height="20px"
@@ -161,7 +172,21 @@ export const renderVoting = () => {
                     </button>
                 </div>
             </div>`;
-			content.addEventListener('click', renderVoting, handleButtonClick);
+			const upVoteButtons = document.querySelectorAll('.btn.up');
+			const downVoteButtons = document.querySelectorAll('.btn.down');
+			const favsButtons = document.querySelectorAll('.btn.favs');
+
+			upVoteButtons.forEach(button => {
+				button.addEventListener('click', handleButtonClick);
+			});
+
+			downVoteButtons.forEach(button => {
+				button.addEventListener('click', handleButtonClick);
+			});
+
+			favsButtons.forEach(button => {
+				button.addEventListener('click', handleButtonClick);
+			});
 		})
 		.catch(err => console.log(err));
 };

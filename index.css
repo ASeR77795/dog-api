@@ -72,3 +72,10 @@
 .breedsImages {
 	height: 350px;
 }
+.box {
+	display: flex;
+	width: 100%;
+}
+.box__img {
+	width: 25%;
+}
