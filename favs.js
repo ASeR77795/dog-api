@@ -14,7 +14,7 @@ export const renderFavs = () => {
 	const box = document.createElement('div');
 	box.classList.add('box');
 
-	const boxContent = arr.map(item => {
+	const boxContent = uniqueArray.map(item => {
 		return `<img class='box__img' src='${item}'/>`;
 	});
 

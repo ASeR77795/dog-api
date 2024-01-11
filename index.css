@@ -22,6 +22,9 @@
 	display: flex;
 	gap: 10px;
 }
+.block__content {
+	width: 100%;
+}
 .btn {
 	border: 0;
 	background-color: transparent;
@@ -75,7 +78,11 @@
 .box {
 	display: flex;
 	width: 100%;
+	flex-wrap: wrap;
 }
 .box__img {
 	width: 25%;
+	height: 100px;
+	padding: 5px;
+	object-fit: cover;
 }
