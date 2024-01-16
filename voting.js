@@ -1,20 +1,39 @@
 import { key } from './key.js';
 
 const content = document.querySelector('.block__content');
+const votesUrl = 'https://api.thecatapi.com/v1/votes';
+
 const url = 'https://api.thecatapi.com/v1/images/search';
+
 export const arr = [];
 
 export const renderVoting = () => {
 	const voting = `<h1>Voting</h1>`;
 	content.innerHTML = voting;
 
+	const getVotes = async () => {
+		try {
+			await fetch(`${votesUrl}?api_key=${key}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-api-key': key,
+				},
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	getVotes();
+
 	const downVote = async imgId => {
 		try {
-			await fetch(url, {
+			await fetch(`${votesUrl}?api_key=${key}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-api-key': key.toString(),
+					'x-api-key': key,
 				},
 				body: JSON.stringify({
 					image_id: imgId,
@@ -29,11 +48,11 @@ export const renderVoting = () => {
 
 	const upVote = async imgId => {
 		try {
-			await fetch(url, {
+			await fetch(`${votesUrl}?api_key=${key}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-api-key': key.toString(),
+					'x-api-key': key,
 				},
 				body: JSON.stringify({
 					image_id: imgId,
